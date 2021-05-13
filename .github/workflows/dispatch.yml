@@ -1,0 +1,21 @@
+name: dispatch target file updated
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - './graph/schema.graphqls'
+jobs:
+  dispatch-target-updated:
+    strategy:
+      matrix:
+        repo: ['asSqr/graphql-front']
+    name: dispatch-target-updated
+    runs-on: ubuntu-latest
+    steps:
+      - name: dispatch target-updated
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
+          repository: ${{ matrix.repo }}
+          event-type: target-updated
